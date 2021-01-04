@@ -1,16 +1,16 @@
-import React, { Suspense, useRef, useMemo } from 'react';
-import * as THREE from 'three';
-import { useFrame } from 'react-three-fiber';
-import { useMatcapTexture, Octahedron } from '@react-three/drei';
+import React, { Suspense, useRef, useMemo } from "react";
+import * as THREE from "three";
+import { useFrame } from "react-three-fiber";
+import { useMatcapTexture, Octahedron } from "@react-three/drei";
 
-import Loader from '../Loader';
-import Slerp from '../Slerp';
+import Loader from "../Loader";
+import Slerp from "../Slerp";
 
-import Mirrors from './Mirrors';
-import Title from '../Title';
+import Mirrors from "./Mirrors";
+import Title from "../Title";
 
 function BaseBackground() {
-  const [matcapTexture] = useMatcapTexture('C8D1DC_575B62_818892_6E747B');
+  const [matcapTexture] = useMatcapTexture("C8D1DC_575B62_818892_6E747B");
   // console.log(matcapTexture instanceof Texture);
 
   return (
@@ -45,7 +45,8 @@ function TitleCopies({
   color: string;
 }) {
   const vertices = useMemo(() => {
-    const y = new THREE.IcosahedronGeometry(10);
+    const y = new THREE.DodecahedronGeometry(20);
+    // const y = new THREE.IcosahedronGeometry(10);
     return y.vertices;
   }, []);
 
@@ -87,7 +88,7 @@ function useRenderTarget(settings = {}) {
 }
 
 interface mirrorRoomProps {
-  mode: 'Dark' | 'White';
+  mode: "Dark" | "White";
   content: { Dark: string; White: string };
   toggleMode: () => void;
 }
@@ -95,21 +96,21 @@ interface mirrorRoomProps {
 function MirrorRoom({ mode, content, toggleMode }: mirrorRoomProps) {
   const { cubeCamera, renderTarget } = useRenderTarget();
 
-  const hiddenContent = content[mode === 'Dark' ? 'White' : 'Dark'];
+  const hiddenContent = content[mode === "Dark" ? "White" : "Dark"];
   const visibleContent = content[mode];
 
   return (
     <>
       <color
         attach="background"
-        args={mode === 'Dark' ? [0, 0, 0] : [1, 1, 1]}
+        args={mode === "Dark" ? [0, 0, 0] : [1, 1, 1]}
       />
       <Suspense fallback={<Loader />}>
         <Slerp>
           {/* hidden */}
           <BaseBackground />
           <TitleCopies
-            color={mode === 'Dark' ? '#FFFFFF' : '#000000'}
+            color={mode === "Dark" ? "#FFFFFF" : "#000000"}
             layers={[11]}
             content={hiddenContent}
           />
@@ -124,10 +125,10 @@ function MirrorRoom({ mode, content, toggleMode }: mirrorRoomProps) {
           <Mirrors
             layers={[0]}
             envMap={renderTarget.texture}
-            thinFilmFresnel={mode === 'Dark'}
+            thinFilmFresnel={mode === "Dark"}
           />
           <Title
-            color={mode === 'Dark' ? '#FFFFFF' : '#000000'}
+            color={mode === "Dark" ? "#FFFFFF" : "#000000"}
             layers={[0]}
             position={[0, 0, -10]}
             content={visibleContent}

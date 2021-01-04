@@ -1,8 +1,8 @@
-import React, { useRef } from 'react';
-import { Mesh, Material, Euler, Vector3 } from 'three';
-import { useFrame } from 'react-three-fiber';
+import React, { useRef } from "react";
+import { Mesh, Material, Euler, Vector3 } from "three";
+import { useFrame } from "react-three-fiber";
 
-import { Box } from '@react-three/drei';
+import { Box } from "@react-three/drei";
 
 type mirrorProps = {
   sideMaterial: Material;
@@ -13,7 +13,7 @@ type mirrorProps = {
     depth?: number | undefined,
     widthSegments?: number | undefined,
     heightSegments?: number | undefined,
-    depthSegments?: number | undefined,
+    depthSegments?: number | undefined
   ];
   rotation?:
     | Euler
@@ -33,8 +33,8 @@ function Mirror({
   const ref = useRef({} as Mesh);
 
   useFrame(() => {
-    ref.current.rotation.y += 0.001;
-    ref.current.rotation.z += 0.01;
+    ref.current.rotation.x += 0.00008;
+    ref.current.rotation.y += 0.0008;
   });
 
   return (

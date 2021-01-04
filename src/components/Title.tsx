@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react';
-import { Mesh, Vector3, Group } from 'three';
-import { Object3DNode } from 'react-three-fiber';
-import { Text } from '@react-three/drei';
+import React, { useEffect, useRef } from "react";
+import { Mesh, Vector3, Group } from "three";
+import { Object3DNode } from "react-three-fiber";
+import { Text } from "@react-three/drei";
 
 // import useLayers from '../utils/useLayers';
 
@@ -20,12 +20,12 @@ function Title({ layers, position, content, color, ...props }: titleProps) {
 
   return (
     <group {...props} position={position} ref={group}>
-      <Text layers={layers} material-color={color} fontSize={2.5}>
+      <Text layers={layers} material-color={color} fontSize={5}>
         {content}
       </Text>
     </group>
   );
 }
-Title.defaultProps = { color: '#FFFFFF' };
+Title.defaultProps = { color: "#FFFFFF" };
 
 export default Title;

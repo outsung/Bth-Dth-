@@ -5,4 +5,3 @@ export default styled.div`
   height: 100vh;
 `;
 
-

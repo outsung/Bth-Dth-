@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { Texture, Material } from 'three';
-import { useResource } from 'react-three-fiber';
+import React, { useState } from "react";
+import { Texture, Material } from "three";
+import { useResource } from "react-three-fiber";
 
-import ThinFilmFresnelMap from './ThinFilmFresnelMap';
+import ThinFilmFresnelMap from "./ThinFilmFresnelMap";
 
-import Mirror from './Mirror';
+import Mirror from "./Mirror";
 
-import mirrorsData from './mirrorsData';
+import mirrorsData from "./mirrorsData";
 
 type mirrorsProps = {
   envMap: Texture;
@@ -25,12 +25,16 @@ function Mirrors({ envMap, layers, thinFilmFresnel }: mirrorsProps) {
         ref={sideMaterial}
         map={thinFilmFresnel ? thinFilmFresnelMap : undefined}
         color="#AAAAAA"
+        opacity={0.7}
+        transparent
       />
       <meshLambertMaterial
         ref={reflectionMaterial}
-        map={thinFilmFresnel ? thinFilmFresnelMap : undefined}
+        // map={thinFilmFresnel ? thinFilmFresnelMap : undefined}
         envMap={envMap}
         color="#FFFFFF"
+        opacity={0.3}
+        transparent
       />
 
       {mirrorsData.mirrors.map((mirror) => (
