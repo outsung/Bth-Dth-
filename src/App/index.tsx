@@ -4,7 +4,7 @@ import { Canvas } from 'react-three-fiber';
 import Container from './style';
 
 import MirrorRoom from '../components/MirrorRoom';
-import Controls from '../utils/Controls';
+// import Controls from '../utils/Controls';
 
 export default function App() {
   const [mode, setMode] = useState<'Dark' | 'White'>('Dark');

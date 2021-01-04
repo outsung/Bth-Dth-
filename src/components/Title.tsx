@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Layers, Mesh, Vector3, Group } from 'three';
+import { Mesh, Vector3, Group } from 'three';
 import { Object3DNode } from 'react-three-fiber';
 import { Text } from '@react-three/drei';
 
