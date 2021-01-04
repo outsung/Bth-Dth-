@@ -1,6 +1,5 @@
 {
   "homepage": "./",
-  
   "name": "client",
   "version": "0.1.0",
   "private": true,
@@ -52,7 +51,7 @@
         "error"
       ],
       "consistent-return": 0,
-      "react/jsx-props-no-spreading":0 
+      "react/jsx-props-no-spreading": 0
     }
   },
   "browserslist": {
