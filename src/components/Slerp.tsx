@@ -21,7 +21,7 @@ function Slerp({ children, ...args }: slerpProps) {
     // console.log(group.current.quaternion);
 
     const x = (mouse.x * viewport.width) / 100;
-    const y = (mouse.y * viewport.height) / 100;
+    const y = -(mouse.y * viewport.height) / 100;
 
     rotationEuler.set(y, x, 0);
     rotationQuaternion.setFromEuler(rotationEuler);
