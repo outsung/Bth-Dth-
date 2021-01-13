@@ -4,7 +4,7 @@ import { useFrame, useThree } from "react-three-fiber";
 import { useMatcapTexture, Octahedron, HTML } from "@react-three/drei";
 
 import Loader from "../Loader";
-import Slerp from "../Slerp";
+// import Slerp from "../Slerp";
 
 import Mirrors from "./Mirrors";
 import Title from "../Title";
@@ -99,7 +99,7 @@ interface mirrorRoomProps {
 }
 
 function MirrorRoom({ content }: mirrorRoomProps) {
-  const { camera, viewport } = useThree();
+  const { camera } = useThree();
   const scrollRef = useRef({} as THREE.Group);
   const { cubeCamera, renderTarget } = useRenderTarget();
 
@@ -109,67 +109,71 @@ function MirrorRoom({ content }: mirrorRoomProps) {
   const hiddenContent = content[mode === "Dark" ? "White" : "Dark"];
   const visibleContent = content[mode];
 
-  let scrollY = 0;
+  const scrollY = useRef(0);
   // camera.position.z;
 
-  function scroll(this: Window, ev: WheelEvent) {
-    scrollY += ev.deltaY * 0.01;
+  const scroll = useMemo(
+    () =>
+      function (this: Window, ev: WheelEvent) {
+        scrollY.current += ev.deltaY * 0.01;
 
-    let type = 0;
-    if (scrollY < 0) {
-      scrollY = 0;
-      type = 0;
-    } else if (scrollY < 40) {
-      type = 1;
-    } else if (scrollY < 45) {
-      type = 2;
-    } else if (scrollY < 50) {
-      type = 3;
-    } else if (scrollY < 90) {
-      type = 4;
-    } else {
-      type = 5;
-    }
+        let type = 0;
+        if (scrollY.current < 0) {
+          scrollY.current = 0;
+          type = 0;
+        } else if (scrollY.current < 40) {
+          type = 1;
+        } else if (scrollY.current < 45) {
+          type = 2;
+        } else if (scrollY.current < 50) {
+          type = 3;
+        } else if (scrollY.current < 90) {
+          type = 4;
+        } else {
+          type = 5;
+        }
 
-    // console.log(
-    //   `type : ${type},\nscrollY : ${scrollY},\nposition.z : ${camera.position.z}`
-    // );
+        // console.log(
+        //   `type : ${type},\nscrollY : ${scrollY.current},\nposition.z : ${camera.position.z}`
+        // );
 
-    const { x, y } = camera.position;
+        const { x, y } = camera.position;
 
-    if (type === 0) {
-      camera.position.lerp(new THREE.Vector3(x, y, 4), 1);
-    } else if (type === 1) {
-      setChanged(false);
-      camera.position.lerp(
-        new THREE.Vector3(x, y, equation(scrollY, 0, 4, 40, -9.9)),
-        1
-      );
-    } else if (type === 2) {
-      setChanged(true);
-      setMode("White");
-      camera.position.lerp(new THREE.Vector3(x, y, -9.9), 1);
-    } else if (type === 3) {
-      setChanged(true);
-      setMode("Dark");
-      camera.position.lerp(new THREE.Vector3(x, y, -9.9), 1);
-    } else if (type === 4) {
-      setChanged(false);
-      camera.position.lerp(
-        new THREE.Vector3(x, y, equation(scrollY, 50, -9.9, 90, 4)),
-        1
-      );
-    } else if (type === 5) {
-      camera.position.lerp(new THREE.Vector3(x, y, 4), 1);
-    }
-  }
+        if (type === 0) {
+          camera.position.lerp(new THREE.Vector3(x, y, 4), 1);
+        } else if (type === 1) {
+          setChanged(false);
+          camera.position.lerp(
+            new THREE.Vector3(x, y, equation(scrollY.current, 0, 4, 40, -9.9)),
+            1
+          );
+        } else if (type === 2) {
+          setChanged(true);
+          setMode("White");
+          camera.position.lerp(new THREE.Vector3(x, y, -9.9), 1);
+        } else if (type === 3) {
+          setChanged(true);
+          setMode("Dark");
+          camera.position.lerp(new THREE.Vector3(x, y, -9.9), 1);
+        } else if (type === 4) {
+          setChanged(false);
+          camera.position.lerp(
+            new THREE.Vector3(x, y, equation(scrollY.current, 50, -9.9, 90, 4)),
+            1
+          );
+        } else if (type === 5) {
+          camera.position.lerp(new THREE.Vector3(x, y, 4), 1);
+        }
+      },
+    [camera]
+  );
 
   useEffect(() => {
     window.addEventListener("wheel", scroll);
     return () => {
       window.removeEventListener("wheel", scroll);
     };
-  }, []);
+  }, [scroll]);
 
   return (
     <>
