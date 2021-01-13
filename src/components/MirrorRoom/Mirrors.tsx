@@ -37,8 +37,9 @@ function Mirrors({ envMap, layers, thinFilmFresnel }: mirrorsProps) {
         transparent
       />
 
-      {mirrorsData.mirrors.map((mirror) => (
+      {mirrorsData.mirrors.map((mirror, i) => (
         <Mirror
+          key={i}
           layers={layers}
           args={[mirror.args[0], mirror.args[1], mirror.args[2]]}
           position={[

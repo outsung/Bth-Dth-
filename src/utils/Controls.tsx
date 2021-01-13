@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
-import { extend, ReactThreeFiber, useThree, useFrame } from 'react-three-fiber';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import React, { useRef } from "react";
+import { extend, ReactThreeFiber, useThree, useFrame } from "react-three-fiber";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 extend({ OrbitControls });
 
@@ -16,7 +16,7 @@ declare global {
 }
 
 export default (
-  props: ReactThreeFiber.Object3DNode<OrbitControls, typeof OrbitControls>,
+  props: ReactThreeFiber.Object3DNode<OrbitControls, typeof OrbitControls>
 ) => {
   const {
     camera,

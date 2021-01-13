@@ -7,7 +7,7 @@ type slerpProps = {
 };
 
 function Slerp({ children, ...args }: slerpProps) {
-  const group = useRef<THREE.Group>();
+  const group = useRef({} as THREE.Group);
   const { viewport } = useThree();
 
   const [rotationEuler, rotationQuaternion] = useMemo(
@@ -25,7 +25,8 @@ function Slerp({ children, ...args }: slerpProps) {
 
     rotationEuler.set(y, x, 0);
     rotationQuaternion.setFromEuler(rotationEuler);
-    group.current.quaternion.slerp(rotationQuaternion, 0.1);
+    // group.current.quaternion.slerp
+    group.current.quaternion.slerp(rotationQuaternion, 0.05);
   });
 
   return (
