@@ -27,7 +27,7 @@ jobs:
         run: npm install --prod --pure-lockfile
 
       - name: A) Setting homepage in package.json
-        run: sed -i 's/#homepage/https:\/\/outsung.github.io\/Duo-frontend\/history\/${{github.event.head_commit.message}}/g' package.json
+        run: sed -i 's/#homepage/https:\/\/outsung.github.io\/Bth-Dth-\/history\/${{github.event.head_commit.message}}/g' package.json
 
       - name: B) Build
         run: npm run build
