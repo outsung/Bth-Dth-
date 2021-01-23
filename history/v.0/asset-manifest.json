@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.js": "/Bth-Dth-/history/v.0/static/js/main.d99b42dd.chunk.js",
+    "main.js.map": "/Bth-Dth-/history/v.0/static/js/main.d99b42dd.chunk.js.map",
+    "runtime-main.js": "/Bth-Dth-/history/v.0/static/js/runtime-main.b50aee04.js",
+    "runtime-main.js.map": "/Bth-Dth-/history/v.0/static/js/runtime-main.b50aee04.js.map",
+    "static/js/2.cfece8af.chunk.js": "/Bth-Dth-/history/v.0/static/js/2.cfece8af.chunk.js",
+    "static/js/2.cfece8af.chunk.js.map": "/Bth-Dth-/history/v.0/static/js/2.cfece8af.chunk.js.map",
+    "static/js/3.cf248897.chunk.js": "/Bth-Dth-/history/v.0/static/js/3.cf248897.chunk.js",
+    "static/js/3.cf248897.chunk.js.map": "/Bth-Dth-/history/v.0/static/js/3.cf248897.chunk.js.map",
+    "index.html": "/Bth-Dth-/history/v.0/index.html",
+    "static/js/2.cfece8af.chunk.js.LICENSE.txt": "/Bth-Dth-/history/v.0/static/js/2.cfece8af.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b50aee04.js",
+    "static/js/2.cfece8af.chunk.js",
+    "static/js/main.d99b42dd.chunk.js"
+  ]
+}
