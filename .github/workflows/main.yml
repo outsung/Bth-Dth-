@@ -1,0 +1,53 @@
+name: Main Deploy
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  Main_Deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Set up Node.js
+        uses: actions/setup-node@master
+        with:
+          node-version: 12.x
+
+      - name: Cache node_modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{runner.OS}}-build-${{hashFiles('**/yarn.lock')}}
+          restore-keys: |
+            ${{ runner.OS }}-build-${{ runner.OS }}-
+
+      - name: Install dependencies
+        run: npm install --prod --pure-lockfile
+
+      - name: A) Setting homepage in package.json
+        run: sed -i 's/#homepage/https:\/\/outsung.github.io\/Duo-frontend\/history\/${{github.event.head_commit.message}}/g' package.json
+
+      - name: B) Build
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      - name: C) Setup assets
+        run: mkdir -p ./deploy
+
+      - name: D) Move build to deploy
+        run: mv ./build ./deploy
+
+      - name: E) Rename
+        run: mv ./deploy/build ./deploy/${{github.event.head_commit.message}}
+
+      - name: F) Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{secrets.GH_PAT}}
+          publish_branch: master
+          publish_dir: ./deploy
+          destination_dir: ./history
+          keep_files: true

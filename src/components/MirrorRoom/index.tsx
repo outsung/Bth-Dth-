@@ -96,9 +96,11 @@ function useRenderTarget(settings = {}) {
 
 interface mirrorRoomProps {
   content: { Dark: string; White: string };
+  isFooter: boolean;
+  addFooter: () => void;
 }
 
-function MirrorRoom({ content }: mirrorRoomProps) {
+function MirrorRoom({ content, isFooter, addFooter }: mirrorRoomProps) {
   const { camera } = useThree();
   const scrollRef = useRef({} as THREE.Group);
   const { cubeCamera, renderTarget } = useRenderTarget();
@@ -130,7 +132,9 @@ function MirrorRoom({ content }: mirrorRoomProps) {
         } else if (scrollY.current < 90) {
           type = 4;
         } else {
+          scrollY.current = 90;
           type = 5;
+          addFooter();
         }
 
         // console.log(
@@ -165,15 +169,17 @@ function MirrorRoom({ content }: mirrorRoomProps) {
           camera.position.lerp(new THREE.Vector3(x, y, 4), 1);
         }
       },
-    [camera]
+    [camera, addFooter]
   );
 
   useEffect(() => {
-    window.addEventListener("wheel", scroll);
+    if (!isFooter) {
+      window.addEventListener("wheel", scroll);
+    }
     return () => {
       window.removeEventListener("wheel", scroll);
     };
-  }, [scroll]);
+  }, [scroll, isFooter]);
 
   return (
     <>

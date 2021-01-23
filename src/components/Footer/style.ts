@@ -9,7 +9,6 @@ export const Container = styled.footer`
   background-color: #000;
   color: #bbb;
 
-  border-top: 1px solid #000;
 `;
 
 export const MainInfo = styled.div`
