@@ -60,9 +60,14 @@ interface phyCharProps extends BoxProps {
   height: number;
   color: string;
   meshProps?: MeshProps;
-  bodyCallback?: (body: any) => void;
-  boxCallback?: (box: any) => void;
+  bodyCallback?: (
+    body: React.MutableRefObject<THREE.Object3D | undefined>
+  ) => void;
+  boxCallback?: (
+    box: React.MutableRefObject<THREE.Vector3 | undefined>
+  ) => void;
 }
+
 export function PhyChar({
   char,
   size,
@@ -125,10 +130,10 @@ function ConeTwistConstraint({
   boxB,
   wordSpacing,
 }: {
-  bodyA: any;
-  bodyB: any;
-  boxA: any;
-  boxB: any;
+  bodyA: React.MutableRefObject<THREE.Object3D | undefined>;
+  bodyB: React.MutableRefObject<THREE.Object3D | undefined>;
+  boxA: React.MutableRefObject<THREE.Vector3 | undefined>;
+  boxB: React.MutableRefObject<THREE.Vector3 | undefined>;
   wordSpacing: number;
 }) {
   // console.log("bodyA", JSON.stringify(bodyA));
@@ -136,19 +141,21 @@ function ConeTwistConstraint({
   // console.log("boxA", JSON.stringify(boxA));
   // console.log("boxB", JSON.stringify(boxB));
 
-  const api = useConeTwistConstraint(bodyA, bodyB, {
-    pivotA: [
-      (boxA.current.x + wordSpacing) / 2,
-      -((boxA.current.y + wordSpacing) / 2),
-      0,
-    ],
-    pivotB: [
-      -((boxB.current.x + wordSpacing) / 2),
-      -((boxB.current.y + wordSpacing) / 2),
-      0,
-    ],
-    collideConnected: true,
-  });
+  if (boxA.current && boxB.current) {
+    useConeTwistConstraint(bodyA, bodyB, {
+      pivotA: [
+        (boxA.current.x + wordSpacing) / 2,
+        -((boxA.current.y + wordSpacing) / 2),
+        0,
+      ],
+      pivotB: [
+        -((boxB.current.x + wordSpacing) / 2),
+        -((boxB.current.y + wordSpacing) / 2),
+        0,
+      ],
+      collideConnected: true,
+    });
+  }
 
   return <></>;
 }
@@ -171,49 +178,17 @@ export function PhyString({
   wordSpacing,
   ...props
 }: phyStringProps) {
-  // const [bodys, setBodys] = useState<any[]>([]);
-  // const [boxs, setBoxs] = useState<any[]>([]);
-  const bodys: any[] = [];
-  const boxs: any[] = [];
+  const bodys: React.MutableRefObject<THREE.Object3D | undefined>[] = [];
+  const boxs: React.MutableRefObject<THREE.Vector3 | undefined>[] = [];
 
-  // const getBody = useCallback(
-  //   () =>
-  //     function (body: any) {
-  //       setBodys([...bodys, body]);
-  //     },
-  //   [bodys]
-  // );
-
-  // const getBox = useCallback(
-  //   () =>
-  //     function (box: any) {
-  //       setBoxs([...boxs, box]);
-  //     },
-  //   [boxs]
-  // );
-  const getBody = (body: any) => {
+  const getBody = (
+    body: React.MutableRefObject<THREE.Object3D | undefined>
+  ) => {
     bodys.push(body);
   };
-  const getBox = (box: any) => {
+  const getBox = (box: React.MutableRefObject<THREE.Vector3 | undefined>) => {
     boxs.push(box);
   };
-
-  // const components = useMemo(
-  //   () =>
-  //     Array.from(string).map((char) =>
-  //       PhyChar({
-  //         ...props,
-  //         color,
-  //         char,
-  //         size,
-  //         height,
-  //         meshProps,
-  //         bodyCallback: getBody,
-  //         boxCallback: getBox,
-  //       })
-  //     ),
-  //   [color, string, size, height, meshProps, props, getBody, getBox]
-  // );
 
   const { position } = props;
   const standardPosition = position || [0, 0, 0];
@@ -221,12 +196,12 @@ export function PhyString({
   const groupCenterX =
     (size * string.length + wordSpacing * (string.length - 1)) / 2;
 
-  console.log("standardPosition", standardPosition);
-  console.log("groupCenterX", groupCenterX);
+  // console.log("standardPosition", standardPosition);
+  // console.log("groupCenterX", groupCenterX);
 
   const components = Array.from(string).map((char, i) => {
     const charCenterX = i * size + i * wordSpacing + size / 2;
-    console.log(i, "charCenterX", charCenterX);
+    // console.log(i, "charCenterX", charCenterX);
 
     return PhyChar({
       ...props,
@@ -244,9 +219,6 @@ export function PhyString({
       boxCallback: getBox,
     });
   });
-
-  // console.log("all bodys", JSON.stringify(bodys));
-  // console.log("all boxs", JSON.stringify(boxs));
 
   return (
     <group>
