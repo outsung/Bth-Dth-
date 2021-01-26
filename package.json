@@ -43,10 +43,6 @@
       "react-app/jest"
     ],
     "rules": {
-      "strict": true,
-      "noUnusedLocals": true,
-      "noUnusedParameters": true,
-
       "react/no-array-index-key": 0,
       "no-unused-vars": 1,
       "use-before-define": 0,
