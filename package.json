@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
+    "@react-three/cannon": "^0.5.3",
     "@react-three/drei": "^2.2.13",
     "@testing-library/jest-dom": "^5.11.8",
     "@testing-library/react": "^11.2.2",
@@ -13,6 +14,7 @@
     "@types/react": "^16.14.2",
     "@types/react-dom": "^16.9.10",
     "@types/styled-components": "^5.1.7",
+    "cannon": "^0.6.2",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^7.1.0",
     "react": "^17.0.1",
@@ -39,6 +41,12 @@
       "react-app/jest"
     ],
     "rules": {
+      "@typescript-eslint/no-unused-vars": [
+        2,
+        {
+          "args": "none"
+        }
+      ],
       "react/no-array-index-key": 0,
       "no-unused-vars": 1,
       "use-before-define": 0,
