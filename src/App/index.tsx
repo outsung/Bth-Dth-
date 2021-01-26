@@ -1,9 +1,10 @@
 import React, { useState, useMemo, useRef } from "react";
-import { Canvas } from "react-three-fiber";
+// import { Canvas } from "react-three-fiber";
 
 import { AppPage, Container } from "./style";
 
-import MirrorRoom from "../components/MirrorRoom";
+// import MirrorRoom from "../components/MirrorRoom";
+import Calendar from "../components/Calendar";
 // import Controls from "../utils/Controls";
 
 // import Introduce from "../components/Introduce";
@@ -15,11 +16,11 @@ export default function App() {
   const pageRef = useRef({} as HTMLDivElement);
   const scrollY = useRef(0);
 
-  const addFooter = () => {
-    pageRef.current.addEventListener("wheel", scroll);
-    setIsFooter(true);
-    scrollY.current = 1;
-  };
+  // const addFooter = () => {
+  //   pageRef.current.addEventListener("wheel", scroll);
+  //   setIsFooter(true);
+  //   scrollY.current = 1;
+  // };
 
   const scroll = useMemo(
     () =>
@@ -45,7 +46,7 @@ export default function App() {
 
   return (
     <AppPage ref={pageRef}>
-      <Container>
+      {/* <Container>
         <Canvas
           concurrent
           shadowMap
@@ -57,10 +58,13 @@ export default function App() {
             addFooter={addFooter}
           />
 
-          {/* dev */}
-          {/* <Controls /> */}
-          {/* <gridHelper /> */}
+          <Controls />
+          <gridHelper />
         </Canvas>
+      </Container> */}
+
+      <Container>
+        <Calendar />
       </Container>
       {isFooter ? <Footer /> : <></>}
     </AppPage>
