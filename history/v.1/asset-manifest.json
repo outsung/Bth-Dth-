@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.js": "/Bth-Dth-/history/v.1/static/js/main.c83cf8f6.chunk.js",
+    "main.js.map": "/Bth-Dth-/history/v.1/static/js/main.c83cf8f6.chunk.js.map",
+    "runtime-main.js": "/Bth-Dth-/history/v.1/static/js/runtime-main.d66f0af4.js",
+    "runtime-main.js.map": "/Bth-Dth-/history/v.1/static/js/runtime-main.d66f0af4.js.map",
+    "static/js/2.c00d4196.chunk.js": "/Bth-Dth-/history/v.1/static/js/2.c00d4196.chunk.js",
+    "static/js/2.c00d4196.chunk.js.map": "/Bth-Dth-/history/v.1/static/js/2.c00d4196.chunk.js.map",
+    "static/js/3.ea0b0cf6.chunk.js": "/Bth-Dth-/history/v.1/static/js/3.ea0b0cf6.chunk.js",
+    "static/js/3.ea0b0cf6.chunk.js.map": "/Bth-Dth-/history/v.1/static/js/3.ea0b0cf6.chunk.js.map",
+    "static/js/4.dd71522b.chunk.js": "/Bth-Dth-/history/v.1/static/js/4.dd71522b.chunk.js",
+    "static/js/4.dd71522b.chunk.js.map": "/Bth-Dth-/history/v.1/static/js/4.dd71522b.chunk.js.map",
+    "index.html": "/Bth-Dth-/history/v.1/index.html",
+    "static/js/2.c00d4196.chunk.js.LICENSE.txt": "/Bth-Dth-/history/v.1/static/js/2.c00d4196.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d66f0af4.js",
+    "static/js/2.c00d4196.chunk.js",
+    "static/js/main.c83cf8f6.chunk.js"
+  ]
+}
