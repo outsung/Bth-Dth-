@@ -129,11 +129,13 @@ function ConeTwistConstraint({
   boxA,
   boxB,
   wordSpacing,
+  size,
 }: {
   bodyA: React.MutableRefObject<THREE.Object3D | undefined>;
   bodyB: React.MutableRefObject<THREE.Object3D | undefined>;
   boxA: React.MutableRefObject<THREE.Vector3 | undefined>;
   boxB: React.MutableRefObject<THREE.Vector3 | undefined>;
+  size: number;
   wordSpacing: number;
 }) {
   // console.log("bodyA", JSON.stringify(bodyA));
@@ -141,21 +143,21 @@ function ConeTwistConstraint({
   // console.log("boxA", JSON.stringify(boxA));
   // console.log("boxB", JSON.stringify(boxB));
 
-  if (boxA.current && boxB.current) {
-    useConeTwistConstraint(bodyA, bodyB, {
-      pivotA: [
-        (boxA.current.x + wordSpacing) / 2,
-        -((boxA.current.y + wordSpacing) / 2),
-        0,
-      ],
-      pivotB: [
-        -((boxB.current.x + wordSpacing) / 2),
-        -((boxB.current.y + wordSpacing) / 2),
-        0,
-      ],
-      collideConnected: true,
-    });
-  }
+  const optns = {
+    pivotA: [
+      (boxA.current?.x || size + wordSpacing) / 2,
+      -((boxA.current?.y || size + wordSpacing) / 2),
+      0,
+    ],
+    pivotB: [
+      -((boxB.current?.x || size + wordSpacing) / 2),
+      -((boxB.current?.y || size + wordSpacing) / 2),
+      0,
+    ],
+    collideConnected: true,
+  };
+
+  useConeTwistConstraint(bodyA, bodyB, optns);
 
   return <></>;
 }
@@ -227,7 +229,7 @@ export function PhyString({
       ))}
 
       {Array.from(string).map((char, i) => (
-        <Fragment key={i}>
+        <Fragment key={`${char}${i}`}>
           {i !== 0 ? (
             <ConeTwistConstraint
               bodyA={bodys[i - 1]}
@@ -235,6 +237,7 @@ export function PhyString({
               boxA={boxs[i - 1]}
               boxB={boxs[i]}
               wordSpacing={wordSpacing}
+              size={size}
             />
           ) : (
             <></>
